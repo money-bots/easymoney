@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+    web:
+        image: nginx:alpine
+        container_name: web
+        ports:
+            - 80:80
+            - 443:443
+        environment:
+            WEB_DOCUMENT_ROOT: /app/public
+            WEB_PHP_SOCKET: php:9000
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx/:/etc/nginx/conf.d/
+    php:
+        build: .
+        container_name: app
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+    mysql:
+        image: mariadb
+        container_name: db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: binance
+        command: mysqld --sql_mode="" --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=0
+        volumes:
+            - ./storage/mysql/:/var/lib/mysql/
+        ports:
+            - 3306:3306
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: phpmyadmin
+        environment:
+            PMA_HOST: db
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+        - "8080:80"
