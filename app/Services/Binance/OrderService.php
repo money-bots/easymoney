@@ -95,7 +95,7 @@ class OrderService extends BaseService
         $order = $order->refresh();
 
         $income = $this->numberFormat(
-            $order->amountSell - $order->amountBuy - $order->priceSellCommission,
+            $order->amountSell - $order->amountBuy,
             4
         );
 
@@ -136,7 +136,7 @@ class OrderService extends BaseService
         $fills = collect($data['fills']);
         $priceBuy = (float)$fills->sortByDesc('price')->first()['price'];
         $commission = (float)$fills->sum('commission');
-        $quantityBuy = (float)$fills->sum('qty') - $commission;
+        $quantityBuy = (float)$fills->sum('qty');
 
         $order->update([
             'orderId' => $data['orderId'],
