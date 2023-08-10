@@ -34,6 +34,7 @@
     },
     "scripts": {
         "buy": "php artisan optimize:clear && php artisan queue:clear && php artisan run:orders && php artisan queue:work",
+        "restart": "sudo supervisorctl stop all && php artisan optimize:clear && php artisan queue:clear && php artisan run:orders && sudo supervisorctl start all && sudo supervisorctl reread && sudo supervisorctl update",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
