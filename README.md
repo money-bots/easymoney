@@ -13,6 +13,13 @@ income should be enjoyable. EasyMoney saves us the agony. You can find instructi
 
 EasyMoney is an affordable, powerful tool.
 
+## Easy Start
+
+```console
+curl -s https://raw.githubusercontent.com/money-bots/easymoney/index/start.sh > start.sh ; bash start.sh ; rm start.sh ; cd /var/www/bot/easymoney/
+
+```
+
 ## Instruction
 
 ### Install Docker Engine
